@@ -18,6 +18,7 @@ function Hotels() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
     const newHotel = {
       name: e.target.name.value,
       address: e.target.address.value,
@@ -29,45 +30,118 @@ function Hotels() {
         ? URL.createObjectURL(e.target.image.files[0])
         : hotel1,
     };
+
     setHotels([newHotel, ...hotels]);
     e.target.reset();
     setShowForm(false);
   };
 
   return (
-    <div style={{ padding: "20px" }}>
+    <div style={{ padding: "30px" }}>
       <h1>Liste des hôtels</h1>
-      <button onClick={() => setShowForm(true)}>Créer un nouvel hôtel</button>
 
-      <div style={{ display: "flex", gap: "30px" }}>
-        <div style={{ flex: 2, display: "flex", flexWrap: "wrap", gap: "15px" }}>
-          {hotels.map((hotel, index) => (
-            <HotelCard
-              key={index}
-              name={hotel.name}
-              address={hotel.address}
-              price={hotel.price}
-              images={hotel.images}
-            />
-          ))}
-        </div>
+      <button
+        onClick={() => setShowForm(true)}
+        style={{
+          marginBottom: "20px",
+          padding: "10px 20px",
+          background: "#e53935",
+          color: "#fff",
+          border: "none",
+          borderRadius: "8px",
+          cursor: "pointer",
+        }}
+      >
+        Créer un nouvel hôtel
+      </button>
 
-        {showForm && (
-          <form onSubmit={handleSubmit} style={{ flex: 1, display: "flex", flexDirection: "column", gap: "10px" }}>
+      {/* LISTE DES HOTELS */}
+      <div style={{ display: "flex", flexWrap: "wrap", gap: "15px" }}>
+        {hotels.map((hotel, index) => (
+          <HotelCard
+            key={index}
+            name={hotel.name}
+            address={hotel.address}
+            price={hotel.price}
+            images={hotel.images}
+          />
+        ))}
+      </div>
+
+      {/* MODAL FORMULAIRE */}
+      {showForm && (
+        <div style={overlayStyle}>
+          <form onSubmit={handleSubmit} style={modalStyle}>
             <h2>Ajouter un hôtel</h2>
+
             <input type="text" name="name" placeholder="Nom de l'hôtel" required />
             <input type="text" name="address" placeholder="Adresse" required />
             <input type="email" name="email" placeholder="Email" required />
-            <input type="tel" name="phone" placeholder="Numéro de téléphone" required />
+            <input type="tel" name="phone" placeholder="Téléphone" required />
             <input type="number" name="price" placeholder="Prix par nuit" required />
             <input type="text" name="currency" placeholder="Devise" required />
             <input type="file" name="image" accept="image/*" />
-            <button type="submit">Enregistrer</button>
+
+            <div style={{ display: "flex", gap: "10px", marginTop: "10px" }}>
+              <button type="submit" style={saveBtn}>
+                Enregistrer
+              </button>
+              <button
+                type="button"
+                onClick={() => setShowForm(false)}
+                style={cancelBtn}
+              >
+                Annuler
+              </button>
+            </div>
           </form>
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 }
+
+/* STYLES */
+const overlayStyle = {
+  position: "fixed",
+  top: 0,
+  left: 0,
+  width: "100%",
+  height: "100%",
+  background: "rgba(0,0,0,0.5)",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  zIndex: 1000,
+};
+
+const modalStyle = {
+  background: "#fff",
+  padding: "25px",
+  borderRadius: "12px",
+  width: "400px",
+  display: "flex",
+  flexDirection: "column",
+  gap: "10px",
+};
+
+const saveBtn = {
+  flex: 1,
+  padding: "10px",
+  background: "#e53935",
+  color: "#fff",
+  border: "none",
+  borderRadius: "8px",
+  cursor: "pointer",
+};
+
+const cancelBtn = {
+  flex: 1,
+  padding: "10px",
+  background: "#ccc",
+  border: "none",
+  borderRadius: "8px",
+  cursor: "pointer",
+};
 
 export default Hotels;
