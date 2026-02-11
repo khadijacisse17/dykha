@@ -1,0 +1,34 @@
+.stat-card {
+  background: #1e3a8a; /* bleu foncé pro */
+  color: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  transition: transform 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+}
+
+.stat-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 25px 40px rgba(0, 0, 0, 0.2);
+}
+
+.stat-card .icon {
+  font-size: 28px;
+  margin-bottom: 12px;
+  color: #93c5fd; /* bleu clair pour l'icône */
+}
+
+.stat-card .title {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.stat-card .value {
+  font-size: 24px;
+  font-weight: bold;
+}

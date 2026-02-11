@@ -1,0 +1,78 @@
+/* Sidebar.css */
+
+/* ===== Sidebar ===== */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: -220px; /* cachée par défaut */
+  width: 200px;
+  height: 100vh;
+  background: #050505; /* fond noir */
+  padding: 20px;
+  box-shadow: 2px 0 5px rgba(12, 12, 12, 0.3);
+  color: #fff;
+  transition: left 0.3s ease;
+  z-index: 1000;
+}
+
+.sidebar.open {
+  left: 0; /* sidebar visible */
+}
+
+.sidebar h2 {
+  margin-bottom: 20px;
+  color: #f7f1f1;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar ul li {
+  margin-bottom: 15px;
+}
+
+/* Liens du sidebar */
+.sidebar ul li a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #111; /* fond sombre par défaut */
+  padding: 10px;
+  border-radius: 6px;
+  text-decoration: none;
+  color: #fff; /* texte blanc */
+  font-weight: bold;
+  transition: all 0.2s ease;
+}
+
+.sidebar ul li a:hover {
+  background: #fff;  /* fond blanc au hover */
+  color: #000;       /* texte noir au hover */
+}
+
+/* ===== Hamburger ===== */
+.hamburger {
+  position: fixed;
+  top: 15px;
+  left: 15px;
+  cursor: pointer;
+  z-index: 1100;
+  background: #fff; /* fond blanc du bouton */
+  padding: 6px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease;
+}
+
+.hamburger:hover {
+  transform: scale(1.1);
+}
+
+/* Hamburger icon uniquement */
+.hamburger svg {
+  color: #000; /* icône noire */
+}

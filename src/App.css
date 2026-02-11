@@ -1,42 +1,274 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+/* =========================
+   VARIABLES (COULEURS)
+========================= */
+:root {
+  --sidebar-bg: #111110;
+  --sidebar-hover: #89fa08;
+  --sidebar-active: #e0e0e0;
+  --text-light: #111010;
+  --text-muted: #bdbdbd;
+  --content-bg: #f7f7f7;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+/* =========================
+   LAYOUT GENERAL
+========================= */
+body {
+  margin: 0;
+  font-family: "Segoe UI", sans-serif;
+  background-color: var(--content-bg);
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* =========================
+   SIDEBAR
+========================= */
+.sidebar {
+  width: 230px;
+  min-height: 100vh;
+  background-color: var(--sidebar-bg);
+  padding: 20px;
+  animation: slideIn 0.6s ease-out;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+/* TITRE */
+.sidebar h3 {
+  color: var(--text-light);
+  margin-bottom: 25px;
+}
+
+/* LIENS */
+.sidebar a {
+  display: block;
+  padding: 12px 15px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+/* HOVER */
+.sidebar a:hover {
+  background-color: var(--sidebar-hover);
+  color: var(--text-light);
+  transform: translateX(6px);
+}
+
+/* LIEN ACTIF */
+.sidebar a.active {
+  background-color: var(--sidebar-active);
+  color: #221d1d;
+  font-weight: bold;
+}
+/* =========================
+   CONTENU PRINCIPAL
+========================= */
+.main-content {
+  padding: 30px;
+  animation: fadeIn 0.8s ease-in;
+}
+
+/* =========================
+   CARTES STATISTIQUES
+========================= */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 20px;
 }
 
 .card {
-  padding: 2em;
+  background-color: white;
+  border-radius: 14px;
+  padding: 20px;
+  box-shadow: 0 6px 18px rgba(5, 5, 5, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  animation: popUp 0.5s ease forwards;
 }
 
-.read-the-docs {
-  color: #888;
+/* HOVER CARTE */
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15);
+}
+
+/* TITRE CARTE */
+.card h4 {
+  margin: 0;
+  color: #333;
+}
+
+/* CHIFFRE */
+.card span {
+  font-size: 22px;
+  font-weight: bold;
+  color: #555;
+}
+
+/* =========================
+   RESPONSIVE DESIGN
+========================= */
+
+/* 📱 Mobile */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 100%;
+    min-height: auto;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px;
+    animation: none;
+  }
+
+  .sidebar h3 {
+    display: none;
+  }
+
+  .sidebar a {
+    margin: 0;
+    padding: 10px;
+    font-size: 14px;
+    text-align: center;
+  }
+
+  .main-content {
+    padding: 15px;
+  }
+
+  .cards {
+    grid-template-columns: 1fr;
+  }
+
+  .card {
+    padding: 18px;
+  }
+}
+
+/* 📲 Tablette */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .sidebar {
+    width: 200px;
+  }
+
+  .cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* 💻 Desktop large */
+@media (min-width: 1200px) {
+  .cards {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* =========================
+   ANIMATIONS
+========================= */
+@keyframes slideIn {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes popUp {
+  from {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+/* =========================
+   DASHBOARD - STAT CARDS
+========================= */
+
+.dashboard {
+  width: 100%;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 22px;
+  margin-top: 20px;
+}
+/* =========================
+   STAT CARD
+========================= */
+
+.stat-card {
+  width: 100%;
+  min-height: 140px;
+  padding: 22px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  color: #fff;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.2);
+}
+
+.stat-icon {
+  font-size: 44px;
+}
+
+.stat-title {
+  font-size: 18px;
+  opacity: 0.9;
+}
+
+.stat-value {
+  font-size: 30px;
+  font-weight: bold;
+  margin-top: 6px;
+}
+
+/* 📱 Mobile */
+@media (max-width: 768px) {
+  .stat-card {
+    min-height: 120px;
+    padding: 18px;
+  }
+
+  .stat-icon {
+    font-size: 34px;
+  }
+
+  .stat-title {
+    font-size: 16px;
+  }
+
+  .stat-value {
+    font-size: 26px;
+  }
+}
+
+/* 📲 Tablette */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .stat-card {
+    min-height: 130px;
+  }
 }

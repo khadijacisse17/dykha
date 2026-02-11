@@ -22,10 +22,7 @@ function Hotels() {
     const newHotel = {
       name: e.target.name.value,
       address: e.target.address.value,
-      email: e.target.email.value,
-      phone: e.target.phone.value,
       price: Number(e.target.price.value),
-      currency: e.target.currency.value,
       images: e.target.image.files[0]
         ? URL.createObjectURL(e.target.image.files[0])
         : hotel1,
@@ -38,25 +35,142 @@ function Hotels() {
 
   return (
     <div style={{ padding: "30px" }}>
-      <h1>Liste des hôtels</h1>
-
-      <button
-        onClick={() => setShowForm(true)}
+      {/* TITRE + BOUTON À DROITE */}
+      <div
         style={{
-          marginBottom: "20px",
-          padding: "10px 20px",
-          background: "#e53935",
-          color: "#fff",
-          border: "none",
-          borderRadius: "8px",
-          cursor: "pointer",
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          marginBottom: "30px",
         }}
       >
-        Créer un nouvel hôtel
-      </button>
+        <h1>Liste des hôtels</h1>
+
+        <button
+          onClick={() => setShowForm(true)}
+          style={{
+            padding: "12px 20px",
+            background: "#000",
+            color: "#fff",
+            border: "none",
+            cursor: "pointer",
+            fontSize: "14px",
+          }}
+        >
+          Créer un nouvel hôtel
+        </button>
+      </div>
+
+      {/* FORMULAIRE CENTRÉ + CLICK OUTSIDE */}
+      {showForm && (
+        <div
+          onClick={() => setShowForm(false)}
+          style={{
+            position: "fixed",
+            inset: 0,
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            background: "rgba(0,0,0,0.2)",
+            zIndex: 1000,
+          }}
+        >
+          <form
+            onSubmit={handleSubmit}
+            onClick={(e) => e.stopPropagation()}
+            style={{
+              background: "#fff",
+              padding: "25px",
+              width: "460px",
+              border: "1px solid #ddd",
+            }}
+          >
+            <h3 style={{ marginBottom: "15px", textAlign: "center" }}>
+              Ajouter un hôtel
+            </h3>
+
+            <input
+              style={inputStyle}
+              type="text"
+              name="name"
+              placeholder="Nom de l'hôtel"
+              required
+            />
+            <input
+              style={inputStyle}
+              type="text"
+              name="address"
+              placeholder="Adresse"
+              required
+            />
+            <input
+              style={inputStyle}
+              type="number"
+              name="price"
+              placeholder="Prix par nuit"
+              required
+            />
+
+            {/* CHAMP IMAGE GRAND + ICONE */}
+            <label
+              style={{
+                fontSize: "14px",
+                marginBottom: "6px",
+                display: "block",
+              }}
+            >
+              Photo de l'hôtel
+            </label>
+
+            <div
+              style={{
+                position: "relative",
+                width: "100%",
+                height: "150px",
+                border: "1px solid #ccc",
+                marginBottom: "15px",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                fontSize: "32px",
+                color: "#888",
+                cursor: "pointer",
+              }}
+            >
+              <input
+                type="file"
+                name="image"
+                accept="image/*"
+                style={{
+                  position: "absolute",
+                  inset: 0,
+                  opacity: 0,
+                  cursor: "pointer",
+                }}
+              />
+              <span role="img" aria-label="Ajouter une photo">📷</span>
+            </div>
+
+            <button
+              type="submit"
+              style={{
+                padding: "12px",
+                width: "100%",
+                background: "#000",
+                color: "#fff",
+                border: "none",
+                cursor: "pointer",
+                fontWeight: "bold",
+              }}
+            >
+              Sauvegarder
+            </button>
+          </form>
+        </div>
+      )}
 
       {/* LISTE DES HOTELS */}
-      <div style={{ display: "flex", flexWrap: "wrap", gap: "15px" }}>
+      <div style={{ display: "flex", flexWrap: "wrap", gap: "20px" }}>
         {hotels.map((hotel, index) => (
           <HotelCard
             key={index}
@@ -67,81 +181,16 @@ function Hotels() {
           />
         ))}
       </div>
-
-      {/* MODAL FORMULAIRE */}
-      {showForm && (
-        <div style={overlayStyle}>
-          <form onSubmit={handleSubmit} style={modalStyle}>
-            <h2>Ajouter un hôtel</h2>
-
-            <input type="text" name="name" placeholder="Nom de l'hôtel" required />
-            <input type="text" name="address" placeholder="Adresse" required />
-            <input type="email" name="email" placeholder="Email" required />
-            <input type="tel" name="phone" placeholder="Téléphone" required />
-            <input type="number" name="price" placeholder="Prix par nuit" required />
-            <input type="text" name="currency" placeholder="Devise" required />
-            <input type="file" name="image" accept="image/*" />
-
-            <div style={{ display: "flex", gap: "10px", marginTop: "10px" }}>
-              <button type="submit" style={saveBtn}>
-                Enregistrer
-              </button>
-              <button
-                type="button"
-                onClick={() => setShowForm(false)}
-                style={cancelBtn}
-              >
-                Annuler
-              </button>
-            </div>
-          </form>
-        </div>
-      )}
     </div>
   );
 }
 
-/* STYLES */
-const overlayStyle = {
-  position: "fixed",
-  top: 0,
-  left: 0,
+/* STYLE INPUT */
+const inputStyle = {
   width: "100%",
-  height: "100%",
-  background: "rgba(0,0,0,0.5)",
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-  zIndex: 1000,
-};
-
-const modalStyle = {
-  background: "#fff",
-  padding: "25px",
-  borderRadius: "12px",
-  width: "400px",
-  display: "flex",
-  flexDirection: "column",
-  gap: "10px",
-};
-
-const saveBtn = {
-  flex: 1,
   padding: "10px",
-  background: "#e53935",
-  color: "#fff",
-  border: "none",
-  borderRadius: "8px",
-  cursor: "pointer",
-};
-
-const cancelBtn = {
-  flex: 1,
-  padding: "10px",
-  background: "#ccc",
-  border: "none",
-  borderRadius: "8px",
-  cursor: "pointer",
+  marginBottom: "10px",
+  border: "1px solid #ccc",
 };
 
 export default Hotels;
